@@ -18,6 +18,12 @@ C:\Users\schneibe\Desktop\EyeTrackerWidget-master\source\WpfSamples\UserPresence
 C:\Users\schneibe\Desktop\EyeTrackerWidget-master\source\WpfSamples\UserPresenceWpf\bin\Debug\UserPresenceWpf.pdb
 C:\Users\schneibe\Desktop\EyeTrackerWidget-master\source\WpfSamples\UserPresenceWpf\obj\Debug\UserPresenceWpf.g.resources
 C:\Users\schneibe\Desktop\EyeTrackerWidget-master\source\WpfSamples\UserPresenceWpf\obj\Debug\UserPresenceWpf.Properties.Resources.resources
+C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\MainWindow.g.cs
+C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\App.g.cs
+C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\UserPresenceWpf_Content.g.cs
+C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\UserPresenceWpf_MarkupCompile.cache
+C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\UserPresenceWpf_MarkupCompile.lref
 C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\bin\Debug\Tobii.EyeX.Client.dll
 C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\bin\Debug\UserPresenceWpf.exe.config
 C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\bin\Debug\UserPresenceWpf.exe
@@ -26,13 +32,6 @@ C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\
 C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\bin\Debug\Tobii.EyeX.Client.Net20.dll
 C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\bin\Debug\EyeXFramework.pdb
 C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\bin\Debug\Tobii.EyeX.Client.Net20.xml
-C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\TobiiDataCollectionTool.csprojResolveAssemblyReference.cache
-C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\MainWindow.g.cs
-C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\App.g.cs
-C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\UserPresenceWpf_Content.g.cs
-C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\UserPresenceWpf_MarkupCompile.cache
-C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\UserPresenceWpf_MarkupCompile.lref
 C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\MainWindow.baml
 C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\UserPresenceWpf.g.resources
 C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\UserPresenceWpf.Properties.Resources.resources

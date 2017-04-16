@@ -8,6 +8,7 @@ using System.IO;
 using EyeXFramework.Wpf;
 using System.Windows.Forms;
 using System.Windows.Media;
+using Tobii.EyeX.Framework;
 
 namespace UserPresenceWpf
 {
@@ -77,7 +78,9 @@ namespace UserPresenceWpf
         private WpfEyeXHost _eyeXHost;
         public GazeData publicGazeData = new GazeData();
 
+        public double lastFixationStartTime = 0;
         public bool userPresent;
+        public int fixation = 0;
         public string initialTime;
 
         public MainWindow()
@@ -93,6 +96,32 @@ namespace UserPresenceWpf
             var stream = _eyeXHost.CreateGazePointDataStream(Tobii.EyeX.Framework.GazePointDataMode.LightlyFiltered);
 
             stream.Next += (s, e) => updateGazeData((int)e.X, (int)e.Y, (int)e.Timestamp);
+
+            // Create a data stream: lightly filtered gaze point data.
+            // Other choices of data streams include EyePositionDataStream and FixationDataStream.
+            using (var fixationGazeDataStream = _eyeXHost.CreateFixationDataStream(FixationDataMode.Sensitive))
+            {
+                // Write the data to the console.
+                fixationGazeDataStream.Next += (s, e) =>
+                {
+                    if (e.EventType == FixationDataEventType.Begin)
+                    {
+                        lastFixationStartTime = e.Timestamp;
+                        this.fixation = 1;
+                    }
+                    if (e.EventType == FixationDataEventType.End)
+                    {
+                        var lastFixationDuration = e.Timestamp - lastFixationStartTime;
+                        this.fixation = 0;
+                        Console.WriteLine("Last fixation duration: {0:0} milliseconds", lastFixationDuration);
+                    }
+                };
+
+                // Let it run until a key is pressed.
+                Console.WriteLine("Listening for fixation data, press any key to exit...");
+                Console.In.Read();
+            }
+
         }
 
         private void updateGazeData(int x, int y, int time)
@@ -102,7 +131,7 @@ namespace UserPresenceWpf
             publicGazeData.time = time;
             
             // write data to log file
-            writeDataToFile(x.ToString(),  y.ToString());
+            writeDataToFile(time, x.ToString(),  y.ToString());
         }
 
         private void initializeLogFile(string destination)
@@ -113,16 +142,16 @@ namespace UserPresenceWpf
             logFile = new System.IO.StreamWriter(logFilename, true);
             
             // print headers (ugly,should be re-written more cleanly)
-            string header = "Timestamp,Index,Session,gazeX,gazeY";
+            string header = "Timestamp,Milliseconds,Index,Session,fixation,gazeX,gazeY";
             logFile.WriteLine(header);
         }
 
-        private void writeDataToFile(string x, string y)
+        private void writeDataToFile(int time, string x, string y)
         {
             if(this.logFile != null && this.recording)
             {
                 index += 1;
-                string text = getTimestamp("datetime").ToString() + "," + index + "," + this.session.Text + "," + x + "," + y;
+                string text = getTimestamp("datetime").ToString() + "," + time + "," + index + "," + this.session.Text + "," + this.fixation + "," + x + "," + y;
                 logFile.WriteLine(text);
             }
         }

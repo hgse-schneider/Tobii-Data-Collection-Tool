@@ -26,6 +26,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <GroupBox Header="GroupBox" HorizontalAlignment="Left" Margin="31,174,0,0" Grid.Row="1" VerticalAlignment="Top" Height="219" Width="337"/>
+
+        <GroupBox Header="Information" HorizontalAlignment="Left" Margin="31,31,0,0" Grid.Row="1" VerticalAlignment="Top" Height="138" Width="318"/>
+
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -50,15 +54,20 @@
         </Grid>
 
         <Grid HorizontalAlignment="Left" Height="100" Margin="57,45,0,0" VerticalAlignment="Top" Width="181" Grid.Row="1">
-            <TextBlock Name="gazeDataTextX" HorizontalAlignment="Left" Margin="4,15,0,0" TextWrapping="Wrap" Text="Gaze X-coordinate: " VerticalAlignment="Top"><Run Text="{Binding gazeX}" /></TextBlock>
-            <TextBlock x:Name="gazeDataTextY" HorizontalAlignment="Left" Margin="4,38,0,0" TextWrapping="Wrap" Text="Gaze Y-coordinate: " VerticalAlignment="Top"><Run Text="{Binding gazeY}" /></TextBlock>
-            <TextBlock x:Name="gazeDataTextTime" HorizontalAlignment="Left" Margin="4,59,0,0" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top">
-                <Run Text="{Binding time}" />
-            </TextBlock>
+            <TextBlock x:Name="gazeDataTextX" HorizontalAlignment="Left" Margin="4,10,0,0" TextWrapping="Wrap" Text="Gaze X-coordinate: " VerticalAlignment="Top"><Run Text="{Binding gazeX}" /></TextBlock>
+            <TextBlock x:Name="gazeDataTextY" HorizontalAlignment="Left" Margin="4,31,0,0" TextWrapping="Wrap" Text="Gaze Y-coordinate: " VerticalAlignment="Top"><Run Text="{Binding gazeY}" /></TextBlock>
+            <TextBlock x:Name="gazeDataTextTime" HorizontalAlignment="Left" Margin="4,52,0,0" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" RenderTransformOrigin="0.41,2.536"><Run Text="{Binding time}" /></TextBlock>
+            <!--
+            <TextBlock x:Name="userPresentlabel" HorizontalAlignment="Left" Margin="4,10,0,0" TextWrapping="Wrap" Text="Is user present: " VerticalAlignment="Top"/>
+            <TextBlock x:Name="trackingGazeLabel" HorizontalAlignment="Left" Margin="4,30,0,0" TextWrapping="Wrap" Text="Is tracking gaze:" VerticalAlignment="Top" Width="91"/>
+            <TextBlock x:Name="userPresent" HorizontalAlignment="Left" Margin="95,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top"  Text="{Binding IsUserPresent, Converter={StaticResource YesNoConverter}}"/>
+            <TextBlock x:Name="trackingGaze" HorizontalAlignment="Left" Margin="100,30,-10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="91" Text="{Binding IsTrackingGaze, Converter={StaticResource YesNoConverter}}" 
+                   Visibility="{Binding IsTrackingGazeSupported, Converter={StaticResource VisibilityConverter}}"/>
+            -->
         </Grid>
         <Button Content="Choose folder" HorizontalAlignment="Left" Margin="57,291,0,0" Grid.Row="1" VerticalAlignment="Top" Width="97" Click="choose_folder"/>
         <TextBlock x:Name="savingDataPathLabel" HorizontalAlignment="Left" Margin="57,258,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Saving data to:" VerticalAlignment="Top"/>
-        <TextBox x:Name="savingDataPath"  HorizontalAlignment="Left" Height="23" Margin="57,334,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="303"/>
+        <TextBox x:Name="savingDataPath"  HorizontalAlignment="Left" Height="23" Margin="57,334,0,0" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="273"/>
         <Button x:Name="startRecording" Content="Record data" HorizontalAlignment="Left" Margin="125,413,0,0" Grid.Row="1" VerticalAlignment="Top" Width="141" Click="record_data" Height="44"/>
         <TextBox  x:Name="session"  HorizontalAlignment="Left" Height="23" Margin="111,199,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Default" VerticalAlignment="Top" Width="120"/>
         <Label Content="Session" HorizontalAlignment="Left" Margin="57,195,0,0" Grid.Row="1" VerticalAlignment="Top"/>
