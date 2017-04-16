@@ -1,0 +1,6 @@
+C:\Users\schneibe\Desktop\EyeTrackerWidget-master\source\EyeXFramework\bin\Debug\EyeXFramework.dll
+C:\Users\schneibe\Desktop\EyeTrackerWidget-master\source\EyeXFramework\bin\Debug\EyeXFramework.pdb
+C:\Users\schneibe\Desktop\EyeTrackerWidget-master\source\EyeXFramework\bin\Debug\Tobii.EyeX.Client.Net20.dll
+C:\Users\schneibe\Desktop\EyeTrackerWidget-master\source\EyeXFramework\bin\Debug\Tobii.EyeX.Client.Net20.xml
+C:\Users\schneibe\Desktop\EyeTrackerWidget-master\source\EyeXFramework\obj\Debug\EyeXFramework.dll
+C:\Users\schneibe\Desktop\EyeTrackerWidget-master\source\EyeXFramework\obj\Debug\EyeXFramework.pdb
