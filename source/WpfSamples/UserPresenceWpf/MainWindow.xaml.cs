@@ -72,7 +72,6 @@ namespace UserPresenceWpf
         public Boolean recording = false;
         public string logFilename = "";
         public int index = 0;
-        public string session = "";
         public System.IO.StreamWriter logFile = null;
 
         private WpfEyeXHost _eyeXHost;
@@ -80,7 +79,6 @@ namespace UserPresenceWpf
 
         public bool userPresent;
         public string initialTime;
-        public string outputFileDirectory;
 
         public MainWindow()
         {
@@ -110,7 +108,7 @@ namespace UserPresenceWpf
         private void initializeLogFile(string destination)
         {
             // define the logs filenames, the path, and start the log file
-            logFilename = string.Format(@"{0}-Kinect-Log-{1}.csv", session, getTimestamp("filename"));
+            logFilename = string.Format(@"{0}-Tobii-Log-{1}.csv", this.session.Text, getTimestamp("filename"));
             logFilename = Path.Combine(destination, logFilename);
             logFile = new System.IO.StreamWriter(logFilename, true);
             
@@ -124,7 +122,7 @@ namespace UserPresenceWpf
             if(this.logFile != null && this.recording)
             {
                 index += 1;
-                string text = getTimestamp("datetime").ToString() + "," + index + "," + session + "," + x + "," + y;
+                string text = getTimestamp("datetime").ToString() + "," + index + "," + this.session.Text + "," + x + "," + y;
                 logFile.WriteLine(text);
             }
         }
@@ -150,7 +148,7 @@ namespace UserPresenceWpf
                 return DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss.fff");
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void choose_folder(object sender, RoutedEventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
 
@@ -162,29 +160,30 @@ namespace UserPresenceWpf
             }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void record_data(object sender, RoutedEventArgs e)
         {
             // check if we have a folder
             if(System.IO.Directory.Exists(this.savingDataPath.Text) && File.GetAttributes(this.savingDataPath.Text).HasFlag(FileAttributes.Directory))
             {
-                initializeLogFile(this.savingDataPath.Text);
+                if(this.logFile == null)
+                    initializeLogFile(this.savingDataPath.Text);
+
+                if (this.recording)
+                {
+                    this.recording = false;
+                    this.startRecording.Content = "Not Recording";
+                    this.startRecording.Background = Brushes.Red;
+                }
+                else if (!this.recording)
+                {
+                    this.recording = true;
+                    this.startRecording.Content = "Recording !";
+                    this.startRecording.Background = Brushes.LightGreen;
+                }
             }
             else
             {
-
-            }
-
-            if (this.recording)
-            {
-                this.recording = false;
-                this.startRecording.Content = "Not Recording";
-                this.startRecording.Background = Brushes.Red;
-            }
-            else if (!this.recording)
-            {
-                this.recording = true;
-                this.startRecording.Content = "Recording !";
-                this.startRecording.Background = Brushes.LightGreen;
+                System.Windows.MessageBox.Show("Please select a valid folder", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
