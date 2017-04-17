@@ -38,3 +38,4 @@ C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\
 C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\TobiiDataCollectionTool.csproj.GenerateResource.Cache
 C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\UserPresenceWpf.exe
 C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\UserPresenceWpf.pdb
+C:\Users\schneibe\Documents\GitHub\Tobii_Data_Collection_Tool\source\WpfSamples\UserPresenceWpf\obj\Debug\TobiiDataCollectionTool.csprojResolveAssemblyReference.cache

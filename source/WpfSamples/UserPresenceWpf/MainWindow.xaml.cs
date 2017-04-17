@@ -21,7 +21,7 @@ namespace UserPresenceWpf
         public event PropertyChangedEventHandler PropertyChanged;
         private int _gazeX;
         private int _gazeY;
-        private int _time;
+
         private void OnPropertyChanged(String property)
         {
             if (PropertyChanged != null)
@@ -53,18 +53,6 @@ namespace UserPresenceWpf
                 OnPropertyChanged("gazeY");
             }
         }
-        public int time
-        {
-            get
-            {
-                return _time;
-            }
-            set
-            {
-                _time = value;
-                OnPropertyChanged("time");
-            }
-        }
     }
 
     public partial class MainWindow : Window
@@ -91,7 +79,6 @@ namespace UserPresenceWpf
 
             gazeDataTextX.DataContext = publicGazeData;
             gazeDataTextY.DataContext = publicGazeData;
-            gazeDataTextTime.DataContext = publicGazeData;
 
             var stream = _eyeXHost.CreateGazePointDataStream(Tobii.EyeX.Framework.GazePointDataMode.LightlyFiltered);
 
@@ -113,13 +100,9 @@ namespace UserPresenceWpf
                     {
                         var lastFixationDuration = e.Timestamp - lastFixationStartTime;
                         this.fixation = 0;
-                        Console.WriteLine("Last fixation duration: {0:0} milliseconds", lastFixationDuration);
                     }
                 };
 
-                // Let it run until a key is pressed.
-                Console.WriteLine("Listening for fixation data, press any key to exit...");
-                Console.In.Read();
             }
 
         }
@@ -128,7 +111,6 @@ namespace UserPresenceWpf
         {
             publicGazeData.gazeX = x;
             publicGazeData.gazeY = y;
-            publicGazeData.time = time;
             
             // write data to log file
             writeDataToFile(time, x.ToString(),  y.ToString());
@@ -152,7 +134,7 @@ namespace UserPresenceWpf
             {
                 index += 1;
                 string text = getTimestamp("datetime").ToString() + "," + time + "," + index + "," + this.session.Text + "," + this.fixation + "," + x + "," + y;
-                logFile.WriteLine(text);
+                this.logFile.WriteLine(text);
             }
         }
 
@@ -219,6 +201,8 @@ namespace UserPresenceWpf
 
         protected override void OnClosed(EventArgs e)
         {
+            this.logFile.Close();
+
             base.OnClosed(e);
 
             System.Windows.Application.Current.Shutdown();

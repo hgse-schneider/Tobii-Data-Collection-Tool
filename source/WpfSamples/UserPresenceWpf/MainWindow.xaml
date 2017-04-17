@@ -56,7 +56,6 @@
         <Grid HorizontalAlignment="Left" Height="100" Margin="57,45,0,0" VerticalAlignment="Top" Width="181" Grid.Row="1">
             <TextBlock x:Name="gazeDataTextX" HorizontalAlignment="Left" Margin="4,10,0,0" TextWrapping="Wrap" Text="Gaze X-coordinate: " VerticalAlignment="Top"><Run Text="{Binding gazeX}" /></TextBlock>
             <TextBlock x:Name="gazeDataTextY" HorizontalAlignment="Left" Margin="4,31,0,0" TextWrapping="Wrap" Text="Gaze Y-coordinate: " VerticalAlignment="Top"><Run Text="{Binding gazeY}" /></TextBlock>
-            <TextBlock x:Name="gazeDataTextTime" HorizontalAlignment="Left" Margin="4,52,0,0" TextWrapping="Wrap" Text="Time" VerticalAlignment="Top" RenderTransformOrigin="0.41,2.536"><Run Text="{Binding time}" /></TextBlock>
             <!--
             <TextBlock x:Name="userPresentlabel" HorizontalAlignment="Left" Margin="4,10,0,0" TextWrapping="Wrap" Text="Is user present: " VerticalAlignment="Top"/>
             <TextBlock x:Name="trackingGazeLabel" HorizontalAlignment="Left" Margin="4,30,0,0" TextWrapping="Wrap" Text="Is tracking gaze:" VerticalAlignment="Top" Width="91"/>
