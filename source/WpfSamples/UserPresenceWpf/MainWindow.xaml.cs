@@ -80,40 +80,29 @@ namespace UserPresenceWpf
             gazeDataTextX.DataContext = publicGazeData;
             gazeDataTextY.DataContext = publicGazeData;
 
-            var stream = _eyeXHost.CreateGazePointDataStream(Tobii.EyeX.Framework.GazePointDataMode.LightlyFiltered);
-
-            stream.Next += (s, e) => updateGazeData((int)e.X, (int)e.Y, (int)e.Timestamp);
-
-            // Create a data stream: lightly filtered gaze point data.
-            // Other choices of data streams include EyePositionDataStream and FixationDataStream.
-            using (var fixationGazeDataStream = _eyeXHost.CreateFixationDataStream(FixationDataMode.Sensitive))
-            {
-                // Write the data to the console.
-                fixationGazeDataStream.Next += (s, e) =>
-                {
-                    if (e.EventType == FixationDataEventType.Begin)
-                    {
-                        lastFixationStartTime = e.Timestamp;
-                        this.fixation = 1;
-                    }
-                    if (e.EventType == FixationDataEventType.End)
-                    {
-                        var lastFixationDuration = e.Timestamp - lastFixationStartTime;
-                        this.fixation = 0;
-                    }
-                };
-
-            }
+            var fixationGazeDataStream = _eyeXHost.CreateFixationDataStream(FixationDataMode.Sensitive);
+            fixationGazeDataStream.Next += (s, e) => updateFixationData(e);
 
         }
 
-        private void updateGazeData(int x, int y, int time)
+        private void updateFixationData(EyeXFramework.FixationEventArgs e)
         {
-            publicGazeData.gazeX = x;
-            publicGazeData.gazeY = y;
-            
+            if (e.EventType == FixationDataEventType.Begin)
+            {
+                lastFixationStartTime = e.Timestamp;
+                this.fixation = 1;
+            }
+            if (e.EventType == FixationDataEventType.End)
+            {
+                var lastFixationDuration = e.Timestamp - lastFixationStartTime;
+                this.fixation = 0;
+            }
+
+            publicGazeData.gazeX = (int)e.X;
+            publicGazeData.gazeY = (int)e.Y;
+
             // write data to log file
-            writeDataToFile(time, x.ToString(),  y.ToString());
+            writeDataToFile(e.Timestamp, publicGazeData.gazeX.ToString(), publicGazeData.gazeY.ToString());
         }
 
         private void initializeLogFile(string destination)
@@ -128,7 +117,7 @@ namespace UserPresenceWpf
             logFile.WriteLine(header);
         }
 
-        private void writeDataToFile(int time, string x, string y)
+        private void writeDataToFile(double time, string x, string y)
         {
             if(this.logFile != null && this.recording)
             {
@@ -201,6 +190,8 @@ namespace UserPresenceWpf
 
         protected override void OnClosed(EventArgs e)
         {
+            this.recording = false; 
+
             this.logFile.Close();
 
             base.OnClosed(e);
