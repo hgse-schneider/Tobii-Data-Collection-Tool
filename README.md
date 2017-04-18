@@ -1,18 +1,18 @@
-#Tobii Data Collection Tool
+# Tobii Data Collection Tool
 
-##Description
+## Description
 User-friendly software for collecting data from the Tobii eye-tracker 4C. 
 
 
-##Features
+## Features
 Generates a log file with the following information:
 * Gaze data
 	* x,y positions of each gaze point captured by the eye-tracker
 
-##Requirements
+## Requirements
 * Windows 8 or 10
 * 64-bit (x64) processor (not tested on x86)
 
-##Dependencies
+## Dependencies
 * .NET framework 4.5
 * [Tobii SDK](http://developer.tobii.com/)
