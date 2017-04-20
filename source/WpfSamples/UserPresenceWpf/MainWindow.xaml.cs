@@ -58,19 +58,23 @@ namespace UserPresenceWpf
 
     public partial class MainWindow : Window
     {
-        // folder and filename for the log
-        public Boolean recording = false;
-        public string logFilename = "";
-        public int index = 0;
-        public System.IO.StreamWriter logFile = null;
-
+        // objects for recording gaze data
         private WpfEyeXHost _eyeXHost;
         public GazeData publicGazeData = new GazeData();
 
+        // global variables for the user interface
         public double lastFixationStartTime = 0;
+        public string initialTime;
         public bool userPresent;
         public int fixation = 0;
-        public string initialTime;
+
+        // folder and filename for the log
+        public StreamWriter logFile = null;
+        public Boolean recording = false;
+        public string logFilename = "";
+        public double last_recording;
+        public double frequency = 1;
+        public int index = 0;
 
         public MainWindow()
         {
@@ -107,9 +111,11 @@ namespace UserPresenceWpf
 
         private int isGazeOnScreen(int gazeX, int gazeY)
         {
+            // get the size of the screen
             int screenWidth = Screen.PrimaryScreen.Bounds.Width;
             int screenHeight = Screen.PrimaryScreen.Bounds.Height;
 
+            // test if it's outside
             if (gazeX < 0 || gazeX > screenWidth) return 0;
             if (gazeY < 0 || gazeY > screenHeight) return 0;
 
@@ -132,12 +138,30 @@ namespace UserPresenceWpf
         {
             if(this.logFile != null && this.recording)
             {
-                index += 1;
-                string text = getTimestamp("datetime").ToString() 
-                    + "," + time + "," + index + "," + this.session.Text + "," + this.fixation 
-                    + "," + x + "," + y + isGazeOnScreen(x, y);
-                this.logFile.WriteLine(text);
+                if(shouldRecordData(time))
+                {
+                    // update global variables
+                    index += 1;
+                    last_recording = time;
+
+                    // prepare the line to be saved in the log file
+                    string text = getTimestamp("datetime").ToString()
+                        + "," + time + "," + index + "," + this.session.Text + "," + this.fixation
+                        + "," + x + "," + y + isGazeOnScreen(x, y);
+
+                    this.logFile.WriteLine(text);
+
+                }
             }
+        }
+
+        private Boolean shouldRecordData(double currentTime)
+        {
+            double timeEllapsed = currentTime - this.last_recording;
+
+            Console.WriteLine(timeEllapsed);
+
+            return true;
         }
 
         /// <summary>
@@ -211,6 +235,17 @@ namespace UserPresenceWpf
             base.OnClosed(e);
 
             System.Windows.Application.Current.Shutdown();
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if(this.frequencyLabel != null && this.frequencySlider != null)
+            {
+                double value = this.frequencySlider.Value - 1;
+                if (value < 1 || value > 25) value += 1;
+                this.frequency = value;
+                this.frequencyLabel.Content = "Frequency(Hz): " + value;
+            }
         }
     }
 }
