@@ -2,6 +2,7 @@
 // Copyright 2014 Tobii Technology AB. All rights reserved.
 //-----------------------------------------------------------------------
 using System;
+using System.Drawing;
 using System.Windows;
 using System.ComponentModel;
 using System.IO;
@@ -82,7 +83,6 @@ namespace UserPresenceWpf
 
             var fixationGazeDataStream = _eyeXHost.CreateFixationDataStream(FixationDataMode.Sensitive);
             fixationGazeDataStream.Next += (s, e) => updateFixationData(e);
-
         }
 
         private void updateFixationData(EyeXFramework.FixationEventArgs e)
@@ -102,7 +102,18 @@ namespace UserPresenceWpf
             publicGazeData.gazeY = (int)e.Y;
 
             // write data to log file
-            writeDataToFile(e.Timestamp, publicGazeData.gazeX.ToString(), publicGazeData.gazeY.ToString());
+            writeDataToFile(e.Timestamp, publicGazeData.gazeX, publicGazeData.gazeY);
+        }
+
+        private int isGazeOnScreen(int gazeX, int gazeY)
+        {
+            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
+            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+
+            if (gazeX < 0 || gazeX > screenWidth) return 0;
+            if (gazeY < 0 || gazeY > screenHeight) return 0;
+
+            return 1;
         }
 
         private void initializeLogFile(string destination)
@@ -113,16 +124,18 @@ namespace UserPresenceWpf
             logFile = new System.IO.StreamWriter(logFilename, true);
             
             // print headers (ugly,should be re-written more cleanly)
-            string header = "Timestamp,Milliseconds,Index,Session,fixation,gazeX,gazeY";
+            string header = "Timestamp,Milliseconds,Index,Session,fixation,gazeX,gazeY,onScreen";
             logFile.WriteLine(header);
         }
 
-        private void writeDataToFile(double time, string x, string y)
+        private void writeDataToFile(double time, int x, int y)
         {
             if(this.logFile != null && this.recording)
             {
                 index += 1;
-                string text = getTimestamp("datetime").ToString() + "," + time + "," + index + "," + this.session.Text + "," + this.fixation + "," + x + "," + y;
+                string text = getTimestamp("datetime").ToString() 
+                    + "," + time + "," + index + "," + this.session.Text + "," + this.fixation 
+                    + "," + x + "," + y + isGazeOnScreen(x, y);
                 this.logFile.WriteLine(text);
             }
         }
@@ -172,13 +185,13 @@ namespace UserPresenceWpf
                 {
                     this.recording = false;
                     this.startRecording.Content = "Not Recording";
-                    this.startRecording.Background = Brushes.Red;
+                    this.startRecording.Background = System.Windows.Media.Brushes.Red;
                 }
                 else if (!this.recording)
                 {
                     this.recording = true;
                     this.startRecording.Content = "Recording !";
-                    this.startRecording.Background = Brushes.LightGreen;
+                    this.startRecording.Background = System.Windows.Media.Brushes.LightGreen;
                 }
             }
             else
@@ -192,7 +205,8 @@ namespace UserPresenceWpf
         {
             this.recording = false; 
 
-            this.logFile.Close();
+            if(this.logFile != null)
+                this.logFile.Close();
 
             base.OnClosed(e);
 
