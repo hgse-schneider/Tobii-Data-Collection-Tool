@@ -1,8 +1,4 @@
-﻿//-----------------------------------------------------------------------
-// Copyright 2014 Tobii Technology AB. All rights reserved.
-//-----------------------------------------------------------------------
-
-namespace UserPresenceWpf
+﻿namespace UserPresenceWpf
 {
     using System;
     using System.ComponentModel;
@@ -22,7 +18,6 @@ namespace UserPresenceWpf
     {
         public WpfEyeXHost _eyeXHost;
         private string _imageSource;
-        private string _recordingText;
         private bool _isUserPresent;
         private bool _isTrackingGaze;
         private bool _isTrackingGazeSupported;
@@ -68,11 +63,6 @@ namespace UserPresenceWpf
         public string ImageSource
         {
             get { return _imageSource; }
-        }
-
-        public string RecordingText
-        {
-            get { return _recordingText; }
         }
 
         /// <summary>

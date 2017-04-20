@@ -1,7 +1,4 @@
-﻿//-----------------------------------------------------------------------
-// Copyright 2014 Tobii Technology AB. All rights reserved.
-//-----------------------------------------------------------------------
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows;
 using System.ComponentModel;
@@ -26,16 +23,11 @@ namespace UserPresenceWpf
         private void OnPropertyChanged(String property)
         {
             if (PropertyChanged != null)
-            {
                 PropertyChanged(this, new PropertyChangedEventArgs(property));
-            }
         }
         public int gazeX
         {
-            get
-            {
-                return _gazeX;
-            }
+            get { return _gazeX; }
             set
             {
                 _gazeX = value;
@@ -44,10 +36,7 @@ namespace UserPresenceWpf
         }
         public int gazeY
         {
-            get
-            {
-                return _gazeY;
-            }
+            get { return _gazeY; }
             set
             {
                 _gazeY = value;
@@ -102,6 +91,7 @@ namespace UserPresenceWpf
                 this.fixation = 0;
             }
 
+            // save the gaze data as a global variable
             publicGazeData.gazeX = (int)e.X;
             publicGazeData.gazeY = (int)e.Y;
 
@@ -150,7 +140,6 @@ namespace UserPresenceWpf
                         + "," + x + "," + y + isGazeOnScreen(x, y);
 
                     this.logFile.WriteLine(text);
-
                 }
             }
         }
@@ -225,18 +214,6 @@ namespace UserPresenceWpf
 
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
-            this.recording = false; 
-
-            if(this.logFile != null)
-                this.logFile.Close();
-
-            base.OnClosed(e);
-
-            System.Windows.Application.Current.Shutdown();
-        }
-
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             if(this.frequencyLabel != null && this.frequencySlider != null)
@@ -246,6 +223,18 @@ namespace UserPresenceWpf
                 this.frequency = value;
                 this.frequencyLabel.Content = "Frequency(Hz): " + value;
             }
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            this.recording = false;
+
+            if (this.logFile != null)
+                this.logFile.Close();
+
+            base.OnClosed(e);
+
+            System.Windows.Application.Current.Shutdown();
         }
     }
 }
