@@ -62,7 +62,7 @@ namespace UserPresenceWpf
         public Boolean recording = false;
         public string logFilename = "";
         public double last_recording = -1.0;
-        public double frequency = 1;
+        public double frequency = 5;
         public int index = 0;
 
         public MainWindow()
@@ -104,6 +104,7 @@ namespace UserPresenceWpf
                 Console.WriteLine("Normalized : {0:0.0}, {1:0.0}, {2:0.0}                   ",
                     e.RightEyeNormalized.X, e.RightEyeNormalized.Y, e.RightEyeNormalized.Z);
             */
+
             writeDataToFile(e.Timestamp, publicGazeData.gazeX, publicGazeData.gazeY);
         }
 
