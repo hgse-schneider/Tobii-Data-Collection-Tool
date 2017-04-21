@@ -76,6 +76,35 @@ namespace UserPresenceWpf
 
             var fixationGazeDataStream = _eyeXHost.CreateFixationDataStream(FixationDataMode.Sensitive);
             fixationGazeDataStream.Next += (s, e) => updateFixationData(e);
+
+            var stream = _eyeXHost.CreateEyePositionDataStream();
+            stream.Next += (s, e) => updateEyeData(e);
+        }
+
+        private void updateEyeData(EyeXFramework.EyePositionEventArgs e)
+        {
+            Console.WriteLine("3D Position: ({0:0.0}, {1:0.0}, {2:0.0})                   ",
+                e.LeftEye.X, e.LeftEye.Y, e.LeftEye.Z);
+
+            /*
+                // Output information about the left eye.
+                Console.WriteLine("LEFT EYE");
+                Console.WriteLine("========");
+                Console.WriteLine("3D Position: ({0:0.0}, {1:0.0}, {2:0.0})                   ",
+                    e.LeftEye.X, e.LeftEye.Y, e.LeftEye.Z);
+                Console.WriteLine("Normalized : ({0:0.0}, {1:0.0}, {2:0.0})                   ",
+                    e.LeftEyeNormalized.X, e.LeftEyeNormalized.Y, e.LeftEyeNormalized.Z);
+
+                // Output information about the right eye.
+                Console.WriteLine();
+                Console.WriteLine("RIGHT EYE");
+                Console.WriteLine("=========");
+                Console.WriteLine("3D Position: {0:0.0}, {1:0.0}, {2:0.0}                   ",
+                    e.RightEye.X, e.RightEye.Y, e.RightEye.Z);
+                Console.WriteLine("Normalized : {0:0.0}, {1:0.0}, {2:0.0}                   ",
+                    e.RightEyeNormalized.X, e.RightEyeNormalized.Y, e.RightEyeNormalized.Z);
+            */
+            writeDataToFile(e.Timestamp, publicGazeData.gazeX, publicGazeData.gazeY);
         }
 
         private void updateFixationData(EyeXFramework.FixationEventArgs e)
@@ -139,7 +168,7 @@ namespace UserPresenceWpf
                     // prepare the line to be saved in the log file
                     string text = getTimestamp("datetime").ToString()
                         + "," + time + "," + index + "," + this.session.Text + "," + this.fixation
-                        + "," + x + "," + y + isGazeOnScreen(x, y);
+                        + "," + x + "," + y + "," + isGazeOnScreen(x, y);
 
                     this.logFile.WriteLine(text);
                 }
