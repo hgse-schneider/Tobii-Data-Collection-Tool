@@ -146,11 +146,21 @@ namespace UserPresenceWpf
 
         private Boolean shouldRecordData(double currentTime)
         {
-            double timeEllapsed = currentTime - this.last_recording;
+            // get the time between now and the previous datapoint in ms
+            double timeEllapsed = (currentTime - this.last_recording) / 1000;
 
             Console.WriteLine(timeEllapsed);
 
-            return true;
+            /*
+            1Hz - elapsed >= 1000ms
+            5Hz - elapsed >= 200ms
+            10Hz - elapsed >= 100ms
+            15Hz - elapsed >= 1000 / 15 = 66ms
+            30Hz - elapsed >= 1000 / 30 = 33ms
+            ⇒ threshold = 1000 / frequency
+            */
+
+            return timeEllapsed >= 1000 / this.frequency;
         }
 
         /// <summary>
