@@ -61,7 +61,7 @@ namespace UserPresenceWpf
         public StreamWriter logFile = null;
         public Boolean recording = false;
         public string logFilename = "";
-        public double last_recording;
+        public double last_recording = -1.0;
         public double frequency = 1;
         public int index = 0;
 
@@ -128,7 +128,9 @@ namespace UserPresenceWpf
         {
             if(this.logFile != null && this.recording)
             {
-                if(shouldRecordData(time))
+                if (this.last_recording < 0.0) this.last_recording = time;
+
+                if (shouldRecordData(time))
                 {
                     // update global variables
                     index += 1;
@@ -147,9 +149,7 @@ namespace UserPresenceWpf
         private Boolean shouldRecordData(double currentTime)
         {
             // get the time between now and the previous datapoint in ms
-            double timeEllapsed = (currentTime - this.last_recording) / 1000;
-
-            Console.WriteLine(timeEllapsed);
+            double timeEllapsed = (currentTime - this.last_recording);
 
             /*
             1Hz - elapsed >= 1000ms
