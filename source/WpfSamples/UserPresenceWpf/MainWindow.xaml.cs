@@ -132,8 +132,8 @@ namespace UserPresenceWpf
         private int isGazeOnScreen(int gazeX, int gazeY)
         {
             // get the size of the screen
-            int screenWidth = Screen.PrimaryScreen.Bounds.Width;
-            int screenHeight = Screen.PrimaryScreen.Bounds.Height;
+            int screenWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
+            int screenHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height;
 
             // test if it's outside
             if (gazeX < 0 || gazeX > screenWidth) return 0;
@@ -201,7 +201,7 @@ namespace UserPresenceWpf
             if (type == "filename")
                 return DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
             else if (type == "datetime")
-                return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
             else if (type == "date")
                 return DateTime.Now.ToString("yyyy-MM-dd");
             else if (type == "time")
