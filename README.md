@@ -4,6 +4,11 @@
 User-friendly software for collecting data from the Tobii eye-tracker 4C. 
 
 
+## Usage
+Run the .exe file located at
+Tobii-Data-Collection-Tool/source/WpfSamples/UserPresenceWpf/bin/Debug/UserPresenceWpf.exe
+
+
 ## Features
 Generates a log file with the following information:
 * Gaze data
